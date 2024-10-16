@@ -26,7 +26,7 @@ $11$ is a root of unity.<br>
 $12$ is neither a root nor an inverse (it has 3 in it).<br>
 $14$ is a root of unity.<br>
 Now look at this: <br>
-R----I----X----R----X----X----I----I----X----X----R----X----X----R<br>
+R----I----X----R----X----X----I----I----X----X----R----X----I----R<br>
 Where R = root, I = inverse, X = neither one of them.
 Some simmetry is individuable here but for the moment we are not interested about this.<br> What we actually care about is that it's clear that whenever there are non-coprimes in the set, there are elements which are not roots nor inverses then it's resonable to assert that Wilson's theorem holds. The problem is about the 'only if' statement inside the theorem which should be proved but I'm moving forward assuming it's true.
 </p>
