@@ -37,3 +37,11 @@ if $z \in Z_{n}$ has an inverse then $z$ is a unit. The set of units is denoted 
 From the previous section is clear that $z$ is a unit if and only if $z$ and $n$ are coprime. Here appears the Totient function which is useful to calculate the number of coprimes of an integer. See https://github.com/xyzhyn/Euler-Totient-function-multiplicativity-demonstration if you are interested.
 </p>
 
+## Modular exp. and DLP
+<p>These are well covered in https://crypto.stanford.edu/pbc/notes/numbertheory/exp.html so I won't delve them. The absence of a structure of the powers of $x \mod p$ is quite magical and it's one of the foundations of cryptography (even if the actual process which destroy the structure is combined with elliptic curves in PLONK). Also notice how $3^{x} \equiv 6 \mod 7$ solving formula decreases the modulo by 1 ($x \equiv 3 \mod 6$), this could be helpful further on.
+</p>
+
+## Nonunits
+<p>From the previous example is clear that we will always face nonunits every time we deal with some $\mod p$ where $p$ is not prime. It's also clear that we will end up having $ad \equiv 0 \mod p$ where $p$ is some $a * \dots$.<br> $d$ is also easy to find: $d = \frac{a * \dots}{a}$. Here Ben Lynn is not clear about why actually we don't bother about nonunits so I'll provide my view: at least from elliptic curves operations (but I guess this is reflected in the DLP, playing with crypto formulas) we don't want to get a 0 from multiplications because $0$ breaks the unstructured (unpredictable) behaviour of the modular exp. (DLP) and elliptic curves, and since modular multiplicative groups are cyclic we would end up having a lot of zeros around. That's why usually crypto operations use $\mod p$ where p is a very big prime (but it could not be always the case -> the more you know the more you are prepared).
+</p>
+
