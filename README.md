@@ -90,7 +90,7 @@ Not only that, we can be sure that since $(dp)^{n} = d^{n}p^{n}$ we will have $(
      - $d = \frac{(k)\phi(N) + 1}{e}$ = $((k)\phi(N) + 1) e^{-1}$
      - $d \equiv e^{-1} \mod \phi(N)$ (which is not computable without factoring N).
 
-  [ Actually https://github.com/xyzhyn/Fermat-Little-Theorem-proof doesn't contain a proof for $a^{\phi(N) + 1} \equiv a \mod N$ ].
+  [ Currently https://github.com/xyzhyn/Fermat-Little-Theorem-proof doesn't contain a proof for $a^{\phi(N) + 1} \equiv a \mod N$ ].
   </p>
 
 ## Primality tests
@@ -164,7 +164,7 @@ for any $a$ which is coprime with $z$. These numbers are called Carmichael numbe
   -><br>
   $x \equiv 375 (\mod 561)$ <br>
 
-  Which is clearly broken. If we had $x \equiv 1 \mod 3$:<br>
+  Which is clearly not $1$. If we had $x \equiv 1 \mod 3$:<br>
 
   $a_{2}N_{2}n_{2} = 1 * 187 * 1 = 0$<br>
   -----<br>
@@ -174,7 +174,48 @@ for any $a$ which is coprime with $z$. These numbers are called Carmichael numbe
   -><br>
   $x \equiv 1 (\mod 561)$ <br>
 
-  This is not a formal proof, but it's fine for the moment.
+  which is quite obvious at this point. The interesting thing, is that:
+
+  $x \equiv 1 \mod 187$<br>
+  $x \equiv 0 \mod 3$<br>
+  $\equiv$<br>
+  $x \equiv 1 \mod 561$<br>
+
+  is not possible, but this doesn't mean that
+
+  $x \equiv 1 \mod 187$<br>
+  $x \equiv 0 \mod 3$<br>
+  $\equiv$<br>
+  $x \equiv ? \mod 561$<br>
+
+  is not possible, infact as we have just seen the solution is $x \equiv 375 (\mod 561)$: <br>
+
+  $x \equiv 1 \mod 187$<br>
+  $x \equiv 0 \mod 3$<br>
+  $\equiv$<br>
+  $x \equiv 375 \mod 561$<br>
+  -><br>
+  $375 \equiv 1 \mod 187$<br>
+  $375 \equiv 0 \mod 3$<br>
+
+  Now, another interesting thing is that 'accidentally': $3^{\phi(3)\phi(11)\phi(17)} \equiv 375 \mod (3)(11)(17)$. Infact the Euler's Theorem holds only if $a$ ($3$ in this case) and $n$ (561) are coprimes (the proof itself keeps this restriction), i.e. if they were coprimes the formula would be: $a^{\phi(n)} \equiv 1 \mod n$.
+
+  Now, since my brain is fried thanks to this primality test, let's try to show an example/proof for this and end this section.
+
+  $3 \times z_{187 coprime} \mod 3 \times 187$
+
+  From this example we can easily imagine the left part as series of $3$ elements added, and the right part too. This means that since $z_{187 coprime}$ and $187$ are coprimes, their modulo will never 'produce' $0$, and this means that any result produced (which will be $0 < z < 187$) will be multiplied by $3$. This is why having a term which is not coprime with the modulo will never 'produce' $1$ as remainder, but only multiples of that term, and this obviously is why the Euler's Theorem holds only for $a$ and $n$ coprimes and also why every non-coprime z with $0 < z < n$ can't have a multiplicative modular inverse. And it's not over, this is also why the Fermat's primality test works fine (when I say that it works, I mean that it manages to recognise that a number is prime or not) when we take $a$ and $n$ non-coprime (where $n$ is not prime obviously).<br>
+  <br>
+  [ This reasoning works in general proving this fact ].<br>
+  <br>
+  Before concluding this section let's see how math keeps pushing us to the truth. From the initial reasoning, math tells us that $Z_{3}^{\ast}$ can be removed from $Z_{3}^{\ast} \times Z_{11}^{\ast} \times Z_{17}^{\ast}$ when considering non-coprimes (which share the $3$ factor in this case). Infact:
+
+  $3^{\phi(3)\phi(11)\phi(17)} \equiv 375 \mod (3)(11)(17)$<br>
+  $3^{\phi(11)\phi(17)} \equiv 375 \mod (3)(11)(17)$
+
+  and the latter
+
+  $3^{\phi(11)\phi(17)} \equiv 1 \mod (11)(17)$<br>
 
   ### Miller-Rabin test
 
