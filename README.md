@@ -1,4 +1,4 @@
-# Solid modular arithmetic background
+# Solid number theory background
 
 ## Intro
 <p>This repo should be read after https://github.com/xyzhyn/Chinese-remainder-theorem. <br>
