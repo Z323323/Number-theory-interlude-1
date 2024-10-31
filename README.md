@@ -1,4 +1,6 @@
-# Restarting from CRT
+# Solid modular arithmetic background
+
+## Intro
 <p>This repo should be read after https://github.com/xyzhyn/Chinese-remainder-theorem. <br>
 As already mentioned, I'll try to get the most out https://crypto.stanford.edu/pbc/notes/numbertheory in order to set a good math background to understand https://zcash.github.io/halo2 trying to simplify the path for anyone would want to approach that book. <br>
 In the ending section of the CRT repo I wrote that the number of square roots of unity is ~ $z^{congruences}$ where $congruences$ divisors are pairwise coprime; the '~' is because for example if we had $x^{2} \equiv 1 \mod 2$, since $1 \mod 2 = -1 \mod 2$ we would have 1 solution in this case which would break $z^{congruences}$ leading to $z^{congruences - 1}$. Also I wrote $z$ to be more general than '2' but take it with a pinch because there could be corner cases, and also mixed degrees into the starting congruences so just move forward and don't give it too much importance because it's very likely to be broken.<br>
@@ -77,7 +79,7 @@ Not only that, we can be sure that since $(dp)^{n} = d^{n}p^{n}$ we will have $(
 <p>
   Now we can do a little deviation into RSA without delving too much.<br>
   
-  1. We calculate N as mult. of (big primes) or mult. of powers of primes. I guess the right approach here is to use $2$ big random primes, or powers of those (there are soo many things to take into consideration while setting up an asimmetric crypto protocol which has to be resistant to attacks, so I could be wrong easily, DYOR).
+  1. We calculate N as mult. of (big) primes or mult. of powers of primes. I guess the right approach here is to use $2$ big random primes (there are soo many things to take into consideration while setting up an asimmetric crypto protocol which has to be resistant to attacks, so I could be wrong easily, DYOR).
   
   2. Since we know the prime factors of N we can easily calculate $\phi(N)$.
   
@@ -204,7 +206,7 @@ for any $a$ which is coprime with $z$. These numbers are called Carmichael numbe
 
   $3 \times z_{187 coprime} \mod 3 \times 187$
 
-  From this example we can easily imagine the left part as series of $3$ elements added, and the right part too. This means that since $z_{187 coprime}$ and $187$ are coprimes, their modulo will never 'produce' $0$, and this means that any result produced (which will be $0 < z < 187$) will be multiplied by $3$. This is why having a term which is not coprime with the modulo will never 'produce' $1$ as remainder, but only multiples of that term, and this obviously is why the Euler's Theorem holds only for $a$ and $n$ coprimes and also why every non-coprime z with $0 < z < n$ can't have a multiplicative modular inverse. And it's not over, this is also why the Fermat's primality test works fine (when I say that it works, I mean that it manages to recognise that a number is prime or not) when we take $a$ and $n$ non-coprime (where $n$ is not prime obviously).<br>
+  From this example we can easily imagine the left part as series of $3$ elements added, and the right part too. This means that since $z_{187 coprime}$ and $187$ are coprimes, their modulo will never 'produce' $0$, and this means that any result produced (which will be $0 < z < 187$) will be multiplied by $3$. This is why having a term which is not coprime with the modulo will never 'produce' $1$ as remainder, but only multiples of that term, and this obviously is why the Euler's Theorem holds only for $a$ and $n$ coprimes and also why every non-coprime z with $0 < z < n$ can't have a multiplicative modular inverse. And it's not over, this is also why the Fermat's primality test works fine (when I say that it works, I mean that it manages to recognise that a number is prime or not) when we take $a$ and $n$ non-coprimes (where $n$ is not prime obviously).<br>
   <br>
   [ This reasoning works in general proving this fact ].<br>
   <br>
@@ -217,9 +219,64 @@ for any $a$ which is coprime with $z$. These numbers are called Carmichael numbe
 
   $3^{\phi(11)\phi(17)} \equiv 1 \mod (11)(17)$<br>
 
+  ### Miller-Rabin test background
+
+  <p>
+    In order to fully understand the Miller-Rabin test, some background is necessary. See
+  </p>
+
   ### Miller-Rabin test
 
-  
+  Here the game starts getting interesting. https://github.com/xyzhyn/Chinese-remainder-theorem is mandatory to understand this section.<br>
+  Let's say we have a number $n$; if this number is odd (otherwise this would be the most trivial thing existing in the math field) how do we check its primality?<br>
+  Following Miller-Rabin, we know that for every odd number $n$ (primes too), $n - 1$ is representable as:
+
+$n - 1 = 2^{S}q$
+
+where $q$ is an odd number. This is actually a very fast process, i.e.:
+
+$n$ -> $n - 1$ -> $q_{?} = \frac{n - 1}{2}$
+
+Now if $q_{?}$ is even we can reiterate $q_{?} = \frac{n - 1}{2}$ and find $S$ really fast until we have the real $q$.<br>
+Keeping this in mind (reasoning from the result), $n$ is prime if (and only if):
+
+  $x^{560} \equiv 1 \mod 561$<br>
+  if and only if<br>
+  $x^{560} \equiv 1 \mod 187$<br>
+  $x^{560} \equiv 1 \mod 3$<br>
+
+for any $0 < x < 561$ (which is of course not true); thus we can take $0 < a < n$ and state that from the CRT and the previous section is clear that $q$ needs to match this property, otherwise $a$ will share a co-factor with $n$ and we'll know that $n$ is not prime:
+
+$a^{q} \equiv 1 \mod q$<br>
+
+This could seem strange at first. The reasoning needs to be complete in order to be understood, so let's complete it before focusing on that congruence. We know that if $n$ is prime then:
+
+$a^{n - 1} \equiv 1 \mod n$
+
+otherwise (from the previous section, since $a$ would share a co-factor):
+
+$a^{n - 1} \not\equiv 1 \mod n$
+
+
+
+
+Thus, from the CRT and the previous section (since $n = :
+
+
+
+  $x \equiv 1 \mod cofactor_{2}$<br>
+  $\dots$
+  $\equiv$<br>
+  $x \equiv 1 \mod n$<br>
+
+  where co-factors $cofactor_{1 \dots}$ are pairwise coprime. 
+
+
+  $a^{\phi(q)} \equiv 1 \mod q$<br>
+  $x \equiv 1 \mod cofactor_{2}$<br>
+  $\dots$
+  $\equiv$<br>
+  $x \equiv 1 \mod n$<br>
 
   
 
