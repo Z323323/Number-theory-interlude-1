@@ -222,7 +222,7 @@ for any $a$ which is coprime with $z$. These numbers are called Carmichael numbe
   ### Miller-Rabin test background
 
   <p>
-    In order to fully understand the Miller-Rabin test, some background is necessary. See
+    In order to fully understand the Miller-Rabin test, some background is necessary. See https://github.com/xyzhyn/Group-theory-elements-and-quadratic-residues.
   </p>
 
   ### Miller-Rabin test
