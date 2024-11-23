@@ -91,10 +91,18 @@ R----I----I----I----I----I----I----I----I----I----I----I----I----I----I----R<br>
   
   4. To decrypt it we need to find $d$ such that $a^{ed} \equiv a \mod N$.
   
-  5. If $ed = \phi(N) + 1$ (or $ed = k(\phi(N)) + 1$), since: $a^{k(\phi(N)) + 1} \equiv a \mod N$ we would have reached our goal so (since we know $e$) we can calc. $d$ doing:
-     - $ed = k(\phi(N)) + 1$
-     - $\displaystyle d = \frac{k(\phi(N)) + 1}{e}$ = $(k(\phi(N)) + 1) e^{-1}$
-     - $d \equiv e^{-1} \mod \phi(N)$ (which is not computable without factoring N).
+  5. If $ed = \phi(N) + 1$, since $a^{\phi(N) + 1} \equiv a \mod N$ we are done, so (since we know $e$) we can calc. $d$ doing:
+     - $ed = \phi(N) + 1$
+     - $\displaystyle d = \frac{\phi(N) + 1}{e}$ = $(\phi(N)) + 1) e^{-1}$
+     - $d \equiv e^{-1} \mod \phi(N)$ (which is not computable without factoring N). Here the difficult thing to realize is that also the exponent follows the remainder behaviour, because we know that every $\phi(N)$ the result of the initial congruence will be $a$, hence we can see that $(\phi(N)) + 1) e^{-1} = (\phi(N))e^{-1} + e^{-1}$. Now we can erase the first $e^{-1}$ attached to $\phi(N)$ because we know that the formula is always verified for any $k$ (it's the corollary of the Euler's Theorem), thus<br>
+
+     $\phi(N) + e^{-1}$
+
+     since we know it's cyclic every $\phi(N)$, solving
+
+     $d \equiv e^{-1} \mod \phi(N)$
+
+     produce our $d$, where $e^{-1}$ is the multiplicative modular inverse of $e \mod \phi(N)$. Yea I know, pretty magical.
   </p>
 
 ## Primality tests
