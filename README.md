@@ -33,7 +33,7 @@ R----I----X----R----X----X----I----I----X----X----R----X----I----R<br>
 
 Where R = root, I = inverse, X = neither one of them.
 
-Some simmetry is individuable here but for the moment we are not interested about this.<br> What we actually care about is that it's clear that whenever there are non-coprimes in the set, there are elements which are not roots nor inverses then it's resonable to assert that Wilson's theorem holds. Also, if we remove all the non-coprimes-with-modulo elements, our group will become almost the same as $Z_{p}^{*}$ where $p$ is prime. Now, the problem about the Wilson's Theorem is the 'only if' statement inside the theorem which should be proved but I'm moving forward assuming it's true.<br>
+It's clear that whenever there are non-coprimes in the set, there are elements which are not roots nor inverses then it's resonable to assert that Wilson's theorem holds. Also, if we remove all the non-coprimes-with-modulo elements, our group will become very similar to $Z_{p}^{*}$ where $p$ is prime. Now, the problem about the Wilson's Theorem is the 'only if' statement inside the theorem which should be proved but I'm moving forward assuming it's true.<br>
 
 Before moving forward let's see another example with a prime modulo:<br>
 
