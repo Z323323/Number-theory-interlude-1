@@ -80,30 +80,17 @@ R----I----I----I----I----I----I----I----I----I----I----I----I----I----I----R<br>
 </p>
 
 ## RSA
+
 <p>
-  Now we can do a little deviation into RSA without delving too much.<br>
   
-  1. We calculate N as mult. of (big) primes or mult. of powers of primes. I guess the right approach here is to use $2$ big random primes (there are soo many things to take into consideration while setting up an asimmetric crypto protocol which has to be resistant to attacks, so I could be wrong easily, DYOR).
-  
-  2. Since we know the prime factors of N we can easily calculate $\phi(N)$.
-  
-  3. We take our message $a$ and calc. $a^{e} \mod N$ (encryption).
-  
-  4. To decrypt it we need to find $d$ such that $a^{ed} \equiv a \mod N$.
-  
-  5. If $ed = \phi(N) + 1$, since $a^{\phi(N) + 1} \equiv a \mod N$ we are done, so (since we know $e$) we can calc. $d$ doing:
-     - $ed = \phi(N) + 1$
-     - $\displaystyle d = \frac{\phi(N) + 1}{e}$ = $(\phi(N)) + 1) e^{-1}$
-     - $d \equiv e^{-1} \mod \phi(N)$ (which is not computable without factoring N). Here the difficult thing to realize is that also the exponent follows the remainder behaviour, because we know that every $\phi(N)$ the result of the initial congruence will be $a$, hence we can see that $(\phi(N)) + 1) e^{-1} = (\phi(N))e^{-1} + e^{-1}$. Now we can erase the first $e^{-1}$ attached to $\phi(N)$ because we know that the formula is always verified for any $k$ (it's the corollary of the Euler's Theorem), thus<br>
+  First, consider this [https://crypto.stanford.edu/pbc/notes/numbertheory/order.html].<br>
+  I give you $2$ more tips:<br>
+  1. $a$ (which is our message to encrypt) must be coprime with $N$, indeed this algorithm is only used to share a second key (which will be coprime with $N$), but this generation will not be performed by the owner of the secret key; instead the $2nd$ peer will use the public key to encrypt his AES key, and send it to the owner of the secret key, which will decrypt this second key and use it to start the exchange of encrypted session using AES. <br>
+  2. the whole computational problem introduced by the algorithm is to find $e^{-1} \mod \phi(N)$ where $\\{e, N\\}$ is our public key (we can't multiply by $e$ because $e$ is calculated $\mod \phi(N)$ not $\mod N$, hence the inverses wouldn't match $\mod N$ thus not giving back the message $a$).
 
-     $\phi(N) + e^{-1}$
-
-     since we know it's cyclic every $\phi(N)$, solving
-
-     $d \equiv e^{-1} \mod \phi(N)$
-
-     produce our $d$, where $e^{-1}$ is the multiplicative modular inverse of $e \mod \phi(N)$. Yea I know, pretty magical.
-  </p>
+Since everything said, the problem of breaking RSA is to find $\phi(N)$, which reduces the problem to fast factorization, which is too much computationally heavy to be performed in a reasonable amount of time.
+     
+</p>
 
 ## Primality tests
 
