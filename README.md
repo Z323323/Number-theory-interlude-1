@@ -84,11 +84,12 @@ R----I----I----I----I----I----I----I----I----I----I----I----I----I----I----R<br>
 <p>
   
   First, consider this [https://crypto.stanford.edu/pbc/notes/numbertheory/order.html].<br>
-  I give you $2$ more tips:<br>
-  1. $a$ (which is our message to encrypt) must be coprime with $N$, indeed this algorithm is only used to share a second key (which will be coprime with $N$), but this generation will not be performed by the owner of the secret key; instead the $2nd$ peer will use the public key to encrypt his AES key, and send it to the owner of the secret key, which will decrypt this second key and use it to start the exchange of encrypted session using AES. <br>
-  2. the whole computational problem introduced by the algorithm is to find $e^{-1} \mod \phi(N)$ where $\\{e, N\\}$ is our public key (we can't multiply by $e$ because $e$ is calculated $\mod \phi(N)$ not $\mod N$, hence the inverses wouldn't match $\mod N$ thus not giving back the message $a$).
+  I give you $3$ more tips:<br>
+  1. To better understand why $ed = k(\phi(N)) + 1$ -> $d = e^{-1} \mod \phi(N)$, just note that the first formula means that $ed$ divided by $\phi(N)$ must be $k + 1$, which in turn means that $ed \equiv 1 \mod \phi(N)$, and the second formula follows after this (I know everything is quite magical in this field).
+  2. $a$ (which is our message to encrypt) must be coprime with $N$, indeed this algorithm is only used to share a second key (which will be coprime with $N$), but this generation will not be performed by the owner of the secret key; instead the $2nd$ peer will use the public key to encrypt his AES key, and send it to the owner of the secret key, which will decrypt this second key and use it to start the exchange of encrypted session using AES. <br>
+  3. the whole computational problem introduced by the algorithm is to find $e^{-1} \mod \phi(N)$ where $\\{e, N\\}$ is our public key (we can't multiply the message $a$ by $e$ because $e$ is calculated $\mod \phi(N)$ not $\mod N$, hence the inverses wouldn't match $\mod N$ thus not giving back the message $a$).
 
-Since everything said, the problem of breaking RSA is to find $\phi(N)$, which reduces the problem to fast factorization, which is too much computationally heavy to be performed in a reasonable amount of time.
+Since everything said, the problem of breaking RSA is to find $\phi(N)$, which reduces the problem to fast factorization, which is too much computationally heavy to be performed in a reasonable amount of time. After factoring $\phi(N)$ we could proceed to calculate $e^{-1} \mod \phi(N)$ using the EEA.
      
 </p>
 
