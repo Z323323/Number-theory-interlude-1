@@ -133,7 +133,7 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
 
   $x^{20} \equiv 1 \mod 21$
 
-  do NOT map the solutions of the first two congruences. Indeed there are $4$ solutions to this last congruence where $2$ of them are obviously $1$ and $-1$. While the solutions of the CRT are are $12$.<br>
+  do NOT map the solutions of the first two congruences. Indeed there are $4$ solutions to this last congruence where $2$ of them are obviously $1$ and $-1$. While the solutions of the system using the CRT are are $12$.<br>
 
   To conclude, there exist some numbers called the 'Carmichael numbers' like $561$ where every $x$ which is coprime with $n$ ($n$ is a Carmichael number) produce $1$ being elevated at $p - 1$, hence they always? fool the test. The question mark is because every coprime number fools the test, but every non-coprime doesn't. But even without considering Carmichael numbers we can't be $~100%$ sure that our $n$ will be prime using this test.
 
