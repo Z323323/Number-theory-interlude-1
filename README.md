@@ -6,7 +6,7 @@
 
 ## Wilson's theorem
 <p>
-The theorem states that for any integer $p > 1$ we have $(p - 1)! = - 1 \mod p$ if and only if p is prime. To understand this lightning fast just think about this: every number from $1$ to $p - 1 (\mod p)$ has a multiplicative modular inverse and that inverse is unique for that number with two exceptions: $1$ and $p - 1$ whose inverses are themselves (indeed they are always roots of unity). Then why multiplying them makes the rule to hold? Simply because $1(p - 1) = p - 1 = - 1 (\mod p)$. One of the 'hard' things to prove here is the uniqueness and existence of multiplicative modular inverses from $1$ to $p - 1$ which I proved in the final section of [https://github.com/Z323323/From-Fermat-to-the-group-theory]. Now let's understand why this formula is enough to prove that $p$ is prime. If $p$ wasn't prime it should mean that $p$ is composed by $2$ or more primes multiplied, then from our reasoning about roots of unity the formula wouldn't produce $- 1$ as result, because of roots of unity which are the inverses of themselves, and because $Z_{n}^{*}$ do not have inverses for every element, thus their multiplication wouldn't produce $1$. All these motivations are not enough to prove that the theorem always work, but I'm not writing a proof for this. Also note that $Z_{n}^{*}$ is not a multiplicative group because the existence of inverses for every element is a requirement for the definition of multiplicative group. Indeed when papers refer to $Z_{n}^{*}$ they refer to $Z_{\phi(n)}^{*}$. <br>
+The theorem states that for any integer $p > 1$ we have $(p - 1)! = - 1 \mod p$ if and only if $p$ is prime. To understand this lightning fast just think about this: every number from $1$ to $p - 1 (\mod p)$ has a multiplicative modular inverse and that inverse is unique for that number with two exceptions: $1$ and $p - 1$ whose inverses are themselves (indeed they are always roots of unity). Then why multiplying them makes the rule to hold? Simply because $1(p - 1) = p - 1 = - 1 (\mod p)$. One of the 'hard' things to prove here is the uniqueness and existence of multiplicative modular inverses from $1$ to $p - 1$ which I proved in the final section of [https://github.com/Z323323/From-Fermat-to-the-group-theory]. Now let's understand why this formula is enough to prove that $p$ is prime. If $p$ wasn't prime there would necessarily exist some numbers which are not coprime, hence by the same reasoning made in the first part of [https://github.com/Z323323/Group-theory-elements] we would end up having a result $\mod n$ ($n$ non-prime) which could not be $1(p - 1)$. We would therefore multiply another number by $p - 1$ thus not producing $- 1$. Also note that $Z_{n}^{*}$ is not a multiplicative group because the existence of inverses for every element is a requirement for the definition of multiplicative group. Indeed when papers refer to $Z_{n}^{*}$ they refer to $Z_{\phi(n)}^{*}$, or better, when I refer to $Z_{\phi(n)}^{*}$ I refer to $Z_{n}^{*}$ because I clearly have mental problems. <br>
   
 $x \mod 4$<br>
 -><br>
@@ -32,8 +32,6 @@ $14$ is a root of unity.<br>
 R----I----X----R----X----X----I----I----X----X----R----X----I----R<br>
 
 Where R = root, I = inverse, X = neither one of them.
-
-It's clear that whenever there are non-coprimes in the set, there are elements which are not roots nor inverses then it's resonable to assert that Wilson's theorem holds. Also, if we remove all the non-coprimes-with-modulo elements, our group will become very similar to $Z_{p}^{*}$ where $p$ is prime. Now, the problem about the Wilson's Theorem is the 'only if' statement inside the theorem which should be proved but I'm moving forward assuming it's true.<br>
 
 Before moving forward let's see another example with a prime modulo:<br>
 
@@ -71,7 +69,7 @@ R----I----I----I----I----I----I----I----I----I----I----I----I----I----I----R<br>
 <p> 
   From the previous example is clear that we will always face nonunits every time we deal with some $\mod n$ where $n$ is not prime. It's also clear that if $n = p^{k}$ for some prime $p$, we will face non-units for every $dp \mod n$ 
   term (for any $d \geq 1$).<br> 
-  When we deal with multiplicative groups, we don't normally care a lot about non-units, since every reason we seen in the former sections and everything said into [https://github.com/Z323323/Group-theory-elements]. Nonetheless it's important to consider them because they exist.
+  When we deal with multiplicative groups, we don't normally care a lot about non-units, since every reasoning made in the former sections and everything said into [https://github.com/Z323323/Group-theory-elements]. Nonetheless it's important to consider them because they exist (and they are a problem).
 </p>
 
 ## Fermat's Little Theorem and Euler's Theorem
@@ -93,9 +91,7 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
      
 </p>
 
-## Primality tests
-
-### Fermat test
+## Fermat's primality test
 <p>
   This is the most intuitive while probably the worst primality test.
   
@@ -139,32 +135,8 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
 
   do NOT map the solutions of the first two congruences. Indeed there are $4$ solutions to this last congruence where $2$ of them are obviously $1$ and $-1$. While the solutions of the CRT are are $12$.<br>
 
-  To conclude, there exist some numbers called the 'Carmichael numbers' like $561$ which produce $1$ for a lot of $xs$, hence they almost always fool the test. But even without considering Carmichael numbers we can't be $~100%$ sure that our $n$ will be prime using this test.
+  To conclude, there exist some numbers called the 'Carmichael numbers' like $561$ where every $x$ which is coprime with $n$ ($n$ is a Carmichael number) produce $1$ being elevated at $p - 1$, hence they always? fool the test. The question mark is because every coprime number fools the test, but every non-coprime doesn't. But even without considering Carmichael numbers we can't be $~100%$ sure that our $n$ will be prime using this test.
 
-### Miller-Rabin test
-
-every odd number $n$ (primes too), $n - 1$ is representable as:
-
-$n - 1 = 2^{S}q$
-
-where $q$ is an odd number. This is actually a very fast process, i.e.:
-
-$n$ -> $n - 1$ -> $q_{?} = \frac{n - 1}{2}$
-
-Now if $q_{?}$ is even we can reiterate $q_{?} = \frac{n - 1}{2}$ and find $S$. 
-
-  
-
-  
-
-
-
-
-
-
-
-
-  
 </p>
 
  
