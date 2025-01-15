@@ -1,4 +1,4 @@
-# Number theory interlude
+# Number theory interlude 1
 
 <p>
   This article collapses some theorems and subjects necessary to complete the cryptography course at [https://crypto.stanford.edu/pbc/notes/numbertheory/].
@@ -6,7 +6,9 @@
 
 ## Wilson's theorem
 <p>
-The theorem states that for any integer $p > 1$ we have $(p - 1)! = - 1 \mod p$ if and only if $p$ is prime. To understand this lightning fast just think about this: every number from $1$ to $p - 1 (\mod p)$ has a multiplicative modular inverse and that inverse is unique for that number with two exceptions: $1$ and $p - 1$ whose inverses are themselves (indeed they are always roots of unity). Then why multiplying them makes the rule to hold? Simply because $1(p - 1) = p - 1 = - 1 (\mod p)$. One of the 'hard' things to prove here is the uniqueness and existence of multiplicative modular inverses from $1$ to $p - 1$ which I proved in the final section of [https://github.com/Z323323/From-Fermat-to-the-group-theory]. Now let's understand why this formula is enough to prove that $p$ is prime. If $p$ wasn't prime there would necessarily exist some numbers which are not coprime, hence by the same reasoning made in the first part of [https://github.com/Z323323/Group-theory-elements] we would end up having a result $\mod n$ ($n$ non-prime) which could not be $1(p - 1)$. We would therefore multiply another number by $p - 1$ thus not producing $- 1$. Also note that $Z_{n}^{*}$ is not a multiplicative group because the existence of inverses for every element is a requirement for the definition of multiplicative group. Indeed when papers refer to $Z_{n}^{*}$ they refer to $Z_{\phi(n)}^{*}$, or better, when I refer to $Z_{\phi(n)}^{*}$ I refer to $Z_{n}^{*}$ because of everything said into [https://github.com/Z323323/Group-theory-elements]. Also we can't use this theorem as primality test because computing $(p - 1)! = - 1 \mod p$ is too computationally heavy. <br>
+The theorem states that for any integer $p > 1$ we have $(p - 1)! = - 1 \mod p$ if and only if $p$ is prime. To understand this lightning fast just think about this: every number from $1$ to $p - 1 (\mod p)$ has a multiplicative modular inverse and that inverse is unique for that number with two exceptions: $1$ and $p - 1$ whose inverses are themselves (indeed they are always roots of unity). Then why multiplying them makes the rule to hold? Simply because $1(p - 1) = p - 1 = - 1 (\mod p)$. One of the 'hard' things to prove here is the uniqueness and existence of multiplicative modular inverses from $1$ to $p - 1$ which I proved in the final section of [https://github.com/Z323323/From-Fermat-to-the-group-theory]. Now let's understand why this formula is enough to prove that $p$ is prime. If $p$ wasn't prime there would necessarily exist some numbers which are not coprime, hence by the same reasoning made in the first part of [https://github.com/Z323323/Group-theory-elements] we would end up having a result $\mod n$ ($n$ non-prime) which could not be $1(p - 1)$. We would therefore multiply another number by $p - 1$ thus not producing $- 1$. Also note that $Z_{n}^{*}$ is not a multiplicative group because the existence of inverses for every element is a requirement for the definition of multiplicative group. Indeed when papers refer to $Z_{n}^{*}$ they refer to $Z_{\phi(n)}^{*}$, or better, when I refer to $Z_{\phi(n)}^{*}$ I refer to $Z_{n}^{*}$ because of everything said into [https://github.com/Z323323/Group-theory-elements]. Also we can't use this theorem as primality test because computing $(p - 1)! = - 1 \mod p$ is too computationally heavy.
+
+### Some ex.s
   
 $x \mod 4$<br>
 -><br>
@@ -122,20 +124,29 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
 
   $x^{560} \equiv 1 \mod 561$
 
-  fooling this test. Now the actual reason why these $xs$ will produce $1$ at the $560$ degree is not because they are the solutions of the CRT system, but is because $560$ is divisible by $2, 10, 16$, hence the multiples of those numbers will always produce $1$ (using the same bases which are mapped by the CRT) because of the cyclicness of subgroups (proved into [https://github.com/Z323323/Group-theory-elements]). Now let's see why is not always the case, and therefore why $561$ is somehow a 'special' number.
+  fooling this test. Now the actual reason why these $xs$ will produce $1$ at the $560$ degree is not because they are the solutions of the CRT system, but is because $560$ is divisible by $2, 10, 16$, hence the multiples of those exponents will always produce $1$ (using the same bases which are mapped by the CRT) because of the cyclicness of subgroups (proved into [https://github.com/Z323323/Group-theory-elements]). Now let's see why is not always the case, and therefore why $561$ is somehow a 'special' number.
 
   $x^{2} \equiv 1 \mod 3$<br>
   $x^{6} \equiv 1 \mod 7$<br>
-  $\equiv ?$<br>
+  $\not\equiv$<br>
   $x^{20} \equiv 1 \mod 21$
 
-  Remember that applying the CRT to the first two congruences, means to find the number of solutions (the numbers) $\mod 21$ which satisfy those two congruences, i.e. to find the numbers which produce $1$ being elevated both at the $2nd$ power and at the $6th$ power. Now $20$ is not divisible by $6$, which means that the solutions of 
+  Remember that applying the CRT to the first two congruences, means to find the number of solutions (the numbers) $\mod 21$ which satisfy those two congruences, i.e. to find the numbers which produce $1$ being elevated both at the $2nd$ power and at the $6t\lambda$ power (and multiples of them). Now $20$ is not divisible by $6$, which means that the solutions of 
 
   $x^{20} \equiv 1 \mod 21$
 
-  do NOT map the solutions of the first two congruences. Indeed there are $4$ solutions to this last congruence where $2$ of them are obviously $1$ and $-1$. While the solutions of the system using the CRT are are $12$.<br>
+  do NOT map the solutions of the first two congruences. Indeed there are only $4$ solutions to this last congruence where $2$ of them are obviously $1$ and $-1$, while the solutions of the system using the CRT are are $12$.<br>
 
-  To conclude, there exist some numbers called the 'Carmichael numbers' like $561$ where every $x$ which is coprime with $n$ ($n$ is a Carmichael number) produce $1$ being elevated at $p - 1$, hence they always? fool the test. The question mark is because every coprime number fools the test, but every non-coprime doesn't. But even without considering Carmichael numbers we can't be ~100% sure that our $n$ will be prime using this test.
+  To conclude, there exist some numbers called the 'Carmichael numbers' like $561$ where every $x$ which is coprime with $n$ ($n$ is a Carmichael number) produce $1$ being elevated at $p - 1$, hence these end up fooling the test. Non-units (aka non-coprimes) won't follow the same behaviour, but the point is that every $x$ of the previous groups generating $Z_{561}^{\ast}$ will be solutions for $x^{560} \equiv 1 \mod 561$. You may be asking yourself where the remaining $560 - 3 \times 11 \times 17$ are. Well the fact is that $x \equiv 0$ does exist ;).
+
+</p>
+
+## Carmichael numbers
+
+<p>
+  Refer to [https://crypto.stanford.edu/pbc/notes/numbertheory/carmichael.html].<br>
+
+  The linked resource is quite self-explainatory, but I'll provide a couple clarifications. The whole first section aims to prove that Carmichael numbers must be composed by at least $3$ distinct odd primes not squared. Initially Ben proves they can't be $2$ primes multiplied. The whole reasoning about $d$ is not because we can be sure that the order of the subgroup generated by $a$ will be $d$, but is because setting the order $o = d$ shows an always true eventuality which collides with the best case possible (with best case I mean the case which has the greatest number of solutions). Since these solutions are at most $(p - 1)/2$ then it's clear that $pq$ can't be a Carmichael number, because it doesn't match the previous section $561$ behaviour where every starting congruence solution is a solution for $x^{560} \equiv 1 \mod 561$. The same reasoning goes for $n = p^{k}r$, that is, $n$ can't be a number of that form too (in order to be a Carmichael number). This means that $n$ will be squarefree and the product of at least three distinct primes.
 
 </p>
 
