@@ -94,7 +94,10 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
 </p>
 
 ## Fermat's primality test
+
 <p>
+  To fully understand this section it's preferable that you have read [https://github.com/Z323323/Group-theory-elements].
+  
   This is the most intuitive while probably the worst primality test.
   
   By Fermat's Little Theorem:
@@ -144,7 +147,7 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
 ## Carmichael numbers
 
 <p>
-  Refer to [https://crypto.stanford.edu/pbc/notes/numbertheory/carmichael.html].<br>
+  Refer to [https://crypto.stanford.edu/pbc/notes/numbertheory/carmichael.html].
 
   The linked resource is quite self-explainatory, but I'll provide a couple clarifications. The whole first section aims to prove that Carmichael numbers must be composed by at least $3$ distinct odd primes not squared. Initially Ben proves they can't be $2$ primes multiplied. The whole reasoning about $d$ is because we know that $a$, in order to match Carmichael numbers property, will need to be such that $a^{q - 1} \equiv 1 \mod p$. This means that $q - 1$ will need to be such that $q - 1 | p - 1$ because in order to have $1$ as residue, $a$ must be a generator for a subgroup of $Z_{p}^{\ast}$ and $q - 1 | p - 1$ follows from Lagrange's Theorem. This in turn means that if we consider the $gcd$ we can set a 'best case scenario' because the number of solutions will be the highest possible for the $gcd$, and
   
