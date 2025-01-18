@@ -149,13 +149,74 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
 <p>
   Refer to [https://crypto.stanford.edu/pbc/notes/numbertheory/carmichael.html].
 
-  The linked resource is quite self-explainatory, but I'll provide a couple clarifications. The whole first section aims to prove that Carmichael numbers must be composed by at least $3$ distinct odd primes not squared. Initially Ben proves they can't be $2$ primes multiplied. The whole reasoning about $d$ is because we know that $a$, in order to match Carmichael numbers property, will need to be such that $a^{q - 1} \equiv 1 \mod p$. This means that $q - 1$ will need to be such that $q - 1 | p - 1$ because in order to have $1$ as residue, $a$ must be a generator for a subgroup of $Z_{p}^{\ast}$ and $q - 1 | p - 1$ follows from Lagrange's Theorem. This in turn means that if we consider the $gcd$ we can set a 'best case scenario' because the number of solutions will be the highest possible for the $gcd$, and
+  The linked resource is quite self-explainatory, but I'll provide a couple clarifications since it's not simple. The whole first section aims to prove that Carmichael numbers must be composed by at least $3$ distinct primes not squared, and the proof comes along with probabilities of (different formed) $n$ to fool the Fermat test (remember that if we choose a random number $a \mod n$ which fools the Fermat test doesn't necessarily mean that $n$ is a Carmichael number, we need every possible random $a$ [coprime with $n$] to fool the Fermat test in order to define $n$ as Carmichael number). Initially Ben proves they can't be $2$ primes multiplied. The whole reasoning about $d$ is because we know that taken a random $a$ (in order to match Carmichael numbers property [remember that $n$ is the number tested not $a$]), it will need to be such that $a^{q - 1} \equiv 1 \mod p$ (clarified later). This means that $q - 1$ will need to be such that $q - 1 | p - 1$ because in order to have $1$ as residue, $a$ will be a generator for a subgroup of $Z_{p}^{\ast}$ of order $o$ such that $o | q - 1$ (it will be that $o = q - 1$) and $o | p - 1$ (everything follows from Lagrange's Theorem). This in turn means that if we consider the $gcd$ we can set a 'best case scenario' because the number of solutions will be the highest possible for the $gcd$, and
   
   $gcd(q - 1, p - 1) = d$<br>
   $->$<br>
   $a^{d} \equiv 1 \mod p$
 
-  Following the 'best case scenario' reasoning, this will mean that since $d$ can be at max $d = (p - 1)/2$ we will have half of the solutions which match the Carmichael numbers property (and the other half will fail). This looks simple but it's not imho (strange huh?). If you consider the congruence for $q$ you will notice that we could consider $d = q - 1$ (always keeping $q - 1 | p - 1$) and this wouldn't change the result. Then the result about half of the solutions is really a 'best case scenario' but it could be easily considered a fantasy one. Indeed in general there will be many fewer solutions matching Carmichael numbers property (remember it could be easily the case that $q - 1 \nmid p - 1$). This whole reasoning proves that under the best case scenario, the structure of $n$ can't match Carmichael numbers property either.<br>
+  Following the 'best case scenario' reasoning, I have to say that I think that if we follow the $gcd$ reasoning this could be a little bit misleading since it's not enough to only consider the $gcd$, we will need $gcd(p - 1, q - 1) = q - 1$ (clarified later). This will mean that since $d$ can be at most $d = (p - 1)/2 (= q - 1)$, because $p > q$, we will have at most only half of the solutions which fool the Fermat test (and the other half will be spotted). To better understand this, just think at the CRT constructions. The result about half of the solutions is really a 'best case scenario' but it could be easily considered a fantasy one, indeed in general there will be many fewer solutions fooling the Fermat test (remember it could be easily the case that $q - 1 \nmid p - 1$). This whole reasoning proves that even under the best case scenario, $n$ can't be a Carmichael number, hence $n$ must be of a different form. Now before going over, let's clarify the process that brought us to $a^{q - 1} \equiv 1 \mod p$, because understanding it will help us understand everything better. We have that (for $n = qp$)
+
+  - $n - 1 = q(p - 1) + q - 1$
+  - $n - 1 = p(q - 1) + p - 1$
+  
+  Every congruence below will need to be verified in order to fool the Fermat test. Remember this doesn't mean that $n$ could be a Carmichael number. In order to be a Carmichael number, we will need every possible $a$ (coprime with $qp$) to fool the test, which means that after solving the system below, we will need to end up having a result which permits to have such condition fulfilled.
+  
+  Let $p > q$ then
+  
+  - $a^{q(p - 1) + q - 1} \equiv 1 \mod p$
+  - $a^{q(p - 1) + q - 1} \equiv 1 \mod q$
+  - $a^{p(q - 1) + p - 1} \equiv 1 \mod p$
+  - $a^{p(q - 1) + p - 1} \equiv 1 \mod q$
+  - $->$
+  - $a^{q(p - 1) + q - 1} \equiv 1 \mod p = a^{q(p - 1)}a^{q - 1} \equiv 1 \mod p = a^{q - 1} \equiv 1 \mod p$ 
+  - $a^{q(p - 1) + q - 1} \equiv 1 \mod q = a \equiv 1 \mod q$ iff $a$ is a generator for a subgroup of order $o | p - 1$
+  - $a^{p(q - 1) + p - 1} \equiv 1 \mod p = a \equiv 1 \mod p$ iff $a$ is a generator for a subgroup of order $o = q - 1$ because it could equal $1$ only if $o = p(q - 1) | p - 1$, and since $gcd(p, q - 1) = 1$, we necessary have $a$ of order $o = q - 1$
+  - $a^{p(q - 1) + p - 1} \equiv 1 \mod q = a^{p(q - 1)}a^{p - 1} \equiv 1 \mod q = a^{p - 1} \equiv 1 \mod q$
+  - $->$
+  - $a^{q - 1} \equiv 1 \mod p$
+  - $a^{p - 1} \equiv 1 \mod q$
+  - $->$
+  - $a^{q - 1} \equiv 1 \mod p$ because this case implies the other since $p > q$
+  - $->$
+  - $o = q - 1 | p - 1$
+
+Let $n = qlp$ (yes, I called the third $l$ for artistic reasons), and $p > q > l$, then
+
+  - $n - 1 = ql(p - 1) + ql - 1$
+  - $n - 1 = pl(q - 1) + pl - 1$
+  - $n - 1 = qp(l - 1) + qp - 1$
+  - $n - 1 = p(ql - 1) + p - 1$
+  - $n - 1 = q(pl - 1) + q - 1$
+  - $n - 1 = l(qp - 1) + l - 1$
+
+  This means that to fool the Fermat test we will need another much more complex construction. Before delving into it, remember that we can recycle the previous result. Thus, everytime you'll find an over-simplification it will be very likely the case of solving a case which matches the previous construction.
+
+  - $a^{ql(p - 1) + ql - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
+  - $a^{ql(p - 1) + ql - 1} \equiv 1 \mod q = $
+  - $a^{ql(p - 1) + ql - 1} \equiv 1 \mod l = $
+  - $a^{pl(q - 1) + pl - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
+  - $a^{pl(q - 1) + pl - 1} \equiv 1 \mod q = $
+  - $a^{pl(q - 1) + pl - 1} \equiv 1 \mod l = $
+  - $a^{qp(l - 1) + qp - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
+  - $a^{qp(l - 1) + qp - 1} \equiv 1 \mod q = $
+  - $a^{qp(l - 1) + qp - 1} \equiv 1 \mod l = $
+  - $a^{p(ql - 1) + p - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
+  - $a^{p(ql - 1) + p - 1} \equiv 1 \mod q = $
+  - $a^{p(ql - 1) + p - 1} \equiv 1 \mod l = $
+  - $a^{q(pl - 1) + q - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
+  - $a^{q(pl - 1) + q - 1} \equiv 1 \mod q = $
+  - $a^{q(pl - 1) + q - 1} \equiv 1 \mod l = $
+  - $a^{l(qp - 1) + l - 1} \equiv 1 \mod q$
+  - $a^{l(qp - 1) + l - 1} \equiv 1 \mod p$
+  - $a^{l(qp - 1) + l - 1} \equiv 1 \mod q$
+  
+
+
+
+
+  
+  
  Almost the same reasoning goes for $n = p^{k}r$, that is, $n$ can't be a number of that form too (in order to be a Carmichael number). The reasoning is similar to Miller-Rabin test intuition, that is, in order to have a Carmichael number, we will need $\phi(p^{k}) | p^{k}r - 1$ because
  
  $p^{k}r - 1 = r(p^{k} - 1) + r - 1$<br>
