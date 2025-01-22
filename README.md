@@ -164,11 +164,6 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
   
   Let $p > q$ then
   
-  - $a^{q(p - 1) + q - 1} \equiv 1 \mod p$
-  - $a^{q(p - 1) + q - 1} \equiv 1 \mod q$
-  - $a^{p(q - 1) + p - 1} \equiv 1 \mod p$
-  - $a^{p(q - 1) + p - 1} \equiv 1 \mod q$
-  - $->$
   - $a^{q(p - 1) + q - 1} \equiv 1 \mod p = a^{q(p - 1)}a^{q - 1} \equiv 1 \mod p = a^{q - 1} \equiv 1 \mod p$ iff $a$ is a generator for a subgroup of order $o | q - 1$ and $o | p - 1$
   - $a^{q(p - 1) + q - 1} \equiv 1 \mod q = a \equiv 1 \mod q$ iff $a$ is a generator for a subgroup of order $o | p - 1$ and $o | q - 1$
   - $a^{p(q - 1) + p - 1} \equiv 1 \mod p = a \equiv 1 \mod p$ iff $a$ is a generator for a subgroup of order $o | q - 1$ and $o | p - 1$
@@ -227,15 +222,21 @@ Summing all up we have that under
 
 $n$ is a Carmichael number, because the constraints implied by $a^{n - 1} \equiv 1$ allow to have a CRT construction which is satisfied by $p - 1, q - 1, l - 1$ solutions respectively.
   
- Now, $n = p^{k}r$ can't be a Carmichael number because $\phi(p^{k}) \neq p^{k} - 1$.
+ Now, $n = p^{k}r$ can't be a Carmichael number simply because of the restriction imposed by
+
+ $p^{k}r - 1 = p^{k}(r - 1) + p^{k} - 1$
+
+ Now, let's analyze the probability of fooling the Fermat test. Let's say $r - 1 | p^{k} - 1$ thus $r - 1 | p^{k}r - 1$, but
+ 
+ $gcd(\phi(p^{k}), p^{k} - 1) = p - 1$ (at most).
 
  The upper bound probability of $1/4$ is because if we consider $p = 2$ we get
 
  $(p - 1)/(p^{k} - 1) = 1/3$
 
  but
- 
- $\phi(2^{k}) = 2^{k - 1} \nmid 2^{k}r - 1$
+
+ $p - 1 \nmid 2^{k} - 1$
 
  always. And then we can consider $p \geq 3$ for which Ben formula holds, while remembering that for $p = 2$, $n$ will never fool the Fermat test.
  
