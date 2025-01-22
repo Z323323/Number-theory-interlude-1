@@ -228,7 +228,7 @@ $n$ is a Carmichael number, because the constraints implied by $a^{n - 1} \equiv
 
  Now, let's analyze the probability of fooling the Fermat test. Let's say $r - 1 | p^{k} - 1$ thus $r - 1 | p^{k}r - 1$, but
  
- $gcd(\phi(p^{k}), p^{k} - 1) = p - 1$ (at most).
+ $gcd(\phi(p^{k}), p^{k} - 1) = p - 1$ (at most; this reason should be enough to prove that $n$ non-squarefree will never be a Carmichael number $[p - 1 < \phi(p^{k})]$).
 
  The upper bound probability of $1/4$ is because if we consider $p = 2$ we get
 
@@ -240,7 +240,7 @@ $n$ is a Carmichael number, because the constraints implied by $a^{n - 1} \equiv
 
  always. And then we can consider $p \geq 3$ for which Ben formula holds, while remembering that for $p = 2$, $n$ will never fool the Fermat test.
  
- This means that $n$ will be squarefree and the product of at least three distinct primes.
+ This means that $n$ will be squarefree and the product of at least three distinct primes. 
 
 </p>
 
