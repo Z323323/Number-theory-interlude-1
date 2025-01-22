@@ -149,7 +149,7 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
 <p>
   Refer to [https://crypto.stanford.edu/pbc/notes/numbertheory/carmichael.html].
 
-  The linked resource is quite self-explainatory, but I'll provide a couple clarifications since it's not simple. The whole first section aims to prove that Carmichael numbers must be composed by at least $3$ distinct primes not squared, and the proof comes along with probabilities of (different formed) $n$ to fool the Fermat test (remember that if we choose a random number $a \mod n$ which fools the Fermat test doesn't necessarily mean that $n$ is a Carmichael number, we need every possible random $a$ [coprime with $n$] to fool the Fermat test in order to define $n$ as Carmichael number). Initially Ben proves they can't be $2$ primes multiplied. The whole reasoning about $d$ is because we know that taken a random $a$ (in order to match Carmichael numbers property [remember that $n$ is the number tested not $a$]), it will need to be such that $a^{q - 1} \equiv 1 \mod p$ (clarified later). This means that $q - 1$ will need to be such that $q - 1 | p - 1$ because in order to have $1$ as residue, $a$ will be a generator for a subgroup of $Z_{p}^{\ast}$ of order $o$ such that $o | q - 1$ (it will be that $o = q - 1$) and $o | p - 1$ (everything follows from Lagrange's Theorem). This in turn means that if we consider the $gcd$ we can set a 'best case scenario' because the number of solutions will be the highest possible for the $gcd$, and
+  The linked resource is quite self-explainatory, but I'll provide a couple clarifications since it's not simple. The whole first section aims to prove that Carmichael numbers must be composed by at least $3$ distinct primes not squared, and the proof comes along with probabilities of (different formed) $n$ to fool the Fermat test. Remember that if we choose a random number $a \mod n$ which fools the Fermat test doesn't necessarily mean that $n$ is a Carmichael number, that is, we need every possible random $a$ [coprime with $n$] to fool the Fermat test in order to define $n$ as Carmichael number, while it's true that every Carmichael number fools the Fermat test, thus we must consider this condition first and then derive our conclusions. Initially Ben proves they can't be $2$ primes multiplied. The whole reasoning about $d$ is because we know that taken a random $a$ (in order to match Carmichael numbers property [remember that $n$ is the number tested not $a$]), it will need to be such that $a^{q - 1} \equiv 1 \mod p$ (clarified later). This means that $q - 1$ will need to be such that $q - 1 | p - 1$ because in order to have $1$ as residue, $a$ will be a generator for a subgroup of $Z_{p}^{\ast}$ of order $o$ such that $o | q - 1$ (it turns out that $o = q - 1$ under the best case) and $o | p - 1$ (everything follows from Lagrange's Theorem). This in turn means that if we consider the $gcd$ we can set a 'best case scenario' because the number of solutions will be the highest possible for the $gcd$, and
   
   $gcd(q - 1, p - 1) = d$<br>
   $->$<br>
@@ -169,65 +169,67 @@ Since everything said, the problem of breaking RSA is to find $\phi(N)$, which r
   - $a^{p(q - 1) + p - 1} \equiv 1 \mod p$
   - $a^{p(q - 1) + p - 1} \equiv 1 \mod q$
   - $->$
-  - $a^{q(p - 1) + q - 1} \equiv 1 \mod p = a^{q(p - 1)}a^{q - 1} \equiv 1 \mod p = a^{q - 1} \equiv 1 \mod p$ 
-  - $a^{q(p - 1) + q - 1} \equiv 1 \mod q = a \equiv 1 \mod q$ iff $a$ is a generator for a subgroup of order $o | p - 1$
-  - $a^{p(q - 1) + p - 1} \equiv 1 \mod p = a \equiv 1 \mod p$ iff $a$ is a generator for a subgroup of order $o = q - 1$ because it could equal $1$ only if $o = p(q - 1) | p - 1$, and since $gcd(p, q - 1) = 1$, we necessary have $a$ of order $o = q - 1$
-  - $a^{p(q - 1) + p - 1} \equiv 1 \mod q = a^{p(q - 1)}a^{p - 1} \equiv 1 \mod q = a^{p - 1} \equiv 1 \mod q$
+  - $a^{q(p - 1) + q - 1} \equiv 1 \mod p = a^{q(p - 1)}a^{q - 1} \equiv 1 \mod p = a^{q - 1} \equiv 1 \mod p$ iff $a$ is a generator for a subgroup of order $o | q - 1$ and $o | p - 1$
+  - $a^{q(p - 1) + q - 1} \equiv 1 \mod q = a \equiv 1 \mod q$ iff $a$ is a generator for a subgroup of order $o | p - 1$ and $o | q - 1$
+  - $a^{p(q - 1) + p - 1} \equiv 1 \mod p = a \equiv 1 \mod p$ iff $a$ is a generator for a subgroup of order $o | q - 1$ and $o | p - 1$
+  - $a^{p(q - 1) + p - 1} \equiv 1 \mod q = a^{p(q - 1)}a^{p - 1} \equiv 1 \mod q = a^{p - 1} \equiv 1 \mod q$ iff $a$ is a generator for a subgroup of order $o | p - 1$ and $o | q - 1$
   - $->$
-  - $a^{q - 1} \equiv 1 \mod p$
-  - $a^{p - 1} \equiv 1 \mod q$
-  - $->$
-  - $a^{q - 1} \equiv 1 \mod p$ because this case implies the other since $p > q$
-  - $->$
-  - $o = q - 1 | p - 1$
+  - $o = q - 1 | p - 1$ is the case which has the most number of solutions
 
-Let $n = qlp$ (yes, I called the third $l$ for artistic reasons), and $p > q > l$, then
+Let's now consider the case $n = qlp$. We can recycle Ben's structure for this case and consider $ql = r$, then $n = pr$. We have that
 
-  - $n - 1 = ql(p - 1) + ql - 1$
-  - $n - 1 = pl(q - 1) + pl - 1$
-  - $n - 1 = qp(l - 1) + qp - 1$
-  - $n - 1 = p(ql - 1) + p - 1$
-  - $n - 1 = q(pl - 1) + q - 1$
-  - $n - 1 = l(qp - 1) + l - 1$
+$a^{n - 1} = a^{pr - 1} = a^{r(p - 1) + r - 1}$<br>
+$and$<br>
+$a^{n - 1} = a^{pr - 1} = a^{p(r - 1) + p - 1}$
 
-  This means that to fool the Fermat test we will need another much more complex construction. Before delving into it, remember that we can recycle the previous result. Thus, everytime you'll find an over-simplification it will be very likely the case of solving a case which matches the previous construction.
+thus, in order to have
 
-  - $a^{ql(p - 1) + ql - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
-  - $a^{ql(p - 1) + ql - 1} \equiv 1 \mod q = $
-  - $a^{ql(p - 1) + ql - 1} \equiv 1 \mod l = $
-  - $a^{pl(q - 1) + pl - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
-  - $a^{pl(q - 1) + pl - 1} \equiv 1 \mod q = $
-  - $a^{pl(q - 1) + pl - 1} \equiv 1 \mod l = $
-  - $a^{qp(l - 1) + qp - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
-  - $a^{qp(l - 1) + qp - 1} \equiv 1 \mod q = $
-  - $a^{qp(l - 1) + qp - 1} \equiv 1 \mod l = $
-  - $a^{p(ql - 1) + p - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
-  - $a^{p(ql - 1) + p - 1} \equiv 1 \mod q = $
-  - $a^{p(ql - 1) + p - 1} \equiv 1 \mod l = $
-  - $a^{q(pl - 1) + q - 1} \equiv 1 \mod p = a^{ql - 1} \equiv 1 \mod p$
-  - $a^{q(pl - 1) + q - 1} \equiv 1 \mod q = $
-  - $a^{q(pl - 1) + q - 1} \equiv 1 \mod l = $
-  - $a^{l(qp - 1) + l - 1} \equiv 1 \mod q$
-  - $a^{l(qp - 1) + l - 1} \equiv 1 \mod p$
-  - $a^{l(qp - 1) + l - 1} \equiv 1 \mod q$
+$a^{r(p - 1) + r - 1} \equiv 1 \mod p$
+
+we will have $p - 1 | r - 1$ and $r - 1 > p - 1$ in order to match Carmichael property. Also
+
+$a^{p(r - 1) + p - 1} \equiv 1 \mod p$
+
+is satisfied too having $a$ as generator for a subgroup of order $o = p - 1 | r - 1$. Now the important thing to understand is that this construction for $r - 1 > p - 1$ doesn't constrain us having an order which is less than $p - 1$. Now if $p > q > l$, $p - 1 | ql - 1$, $q - 1 | lp - 1$ and $l - 1 | qp - 1$, this would mean that the conditions to be a Carmichael number are satisfied because
+
+$p - 1 | r - 1 = p - 1 | ql - 1$
+
+and
+
+$ql - 1 \nmid qlp - 1$
+
+but
+
+$qlp - 1 = p(ql - 1) + p - 1$<br>
+$->$<br>
+$a^{p(ql - 1)} \equiv 1 \mod p$ iff $p - 1 | ql - 1$ which implies $p - 1 | qlp - 1$.
+
+Also
+
+$a^{p(r - 1) + p - 1} \equiv 1 \mod q$<br>
+$->$<br>
+$a^{p(l(q - 1) + l - 1) + p - 1} \equiv 1 \mod q = a^{p(l(q - 1))}a^{p(l - 1)}a^{p - 1} \equiv 1 \mod q = a^{p(l - 1)}a^{p - 1} \equiv 1 \mod q = a^{pl - 1} \equiv 1 \mod q$
+
+thus if $q - 1 | lp - 1$, $qlp - 1 = q(lp - 1) + q - 1$ hence $q - 1 | qlp - 1$.
+
+$a^{p(r - 1) + p - 1} \equiv 1 \mod l$<br>
+$->$<br>
+$a^{p(q(l - 1) + q - 1) + p - 1} \equiv 1 \mod l = a^{p(q(l - 1))}a^{p(q - 1)}a^{p - 1} \equiv 1 \mod l = a^{p(q - 1)}a^{p - 1} \equiv 1 \mod l = a^{pq - 1} \equiv 1 \mod l$
+
+thus if $l - 1 | qp - 1$, $qlp - 1 = l(qp - 1) + l - 1$ hence $l - 1 | qlp - 1$.
+
+Summing all up we have that under
+
+- $n = qlp, p > q > l$ where $q, l, p$ are odd primes (because if $l = 2$ then $qlp - 1$ would be odd and $p - 1, q - 1, l - 1$ wouldn't be able to divide it, note also that this reasoning holds for $n$ being composed by more than $3$ primes)
+- $p - 1 < ql - 1$, and $p - 1 | ql - 1 | qlp - 1$
+- $q - 1 | lp - 1 | qlp - 1$ ($q - 1 < lp - 1$ implied)
+- $l - 1 | qp - 1 | qlp - 1$ ($l - 1 < qp - 1$ implied)
+
+$n$ is a Carmichael number, because the constraints implied by $a^{n - 1} \equiv 1$ allow to have a CRT construction which is satisfied by $p - 1, q - 1, l - 1$ solutions respectively.
   
+ Now, $n = p^{k}r$ can't be a Carmichael number because $\phi(p^{k}) \neq p^{k} - 1$.
 
-
-
-
-  
-  
- Almost the same reasoning goes for $n = p^{k}r$, that is, $n$ can't be a number of that form too (in order to be a Carmichael number). The reasoning is similar to Miller-Rabin test intuition, that is, in order to have a Carmichael number, we will need $\phi(p^{k}) | p^{k}r - 1$ because
- 
- $p^{k}r - 1 = r(p^{k} - 1) + r - 1$<br>
- $-and>$<br>
- $a^{r(p^{k} - 1) + r - 1} \equiv 1 \mod r$
-
- always. We are therefore left with $Z_{p^{k}}^{\ast}$ and
-
- $\phi(p^{k}) | p^{k}r - 1$
-
- follows, along with the final formula derived by Ben. The upper bound probability of $1/4$ is because if we consider $p = 2$ we get
+ The upper bound probability of $1/4$ is because if we consider $p = 2$ we get
 
  $(p - 1)/(p^{k} - 1) = 1/3$
 
@@ -235,7 +237,7 @@ Let $n = qlp$ (yes, I called the third $l$ for artistic reasons), and $p > q > l
  
  $\phi(2^{k}) = 2^{k - 1} \nmid 2^{k}r - 1$
 
- always. And then we can consider $p \geq 3$ for which Ben formula holds, while remembering that for $p = 2$, $n$ will never be a Carmichael number (for non square-free construtions), thus in general this form will never be a Carmichael number.
+ always. And then we can consider $p \geq 3$ for which Ben formula holds, while remembering that for $p = 2$, $n$ will never fool the Fermat test.
  
  This means that $n$ will be squarefree and the product of at least three distinct primes.
 
