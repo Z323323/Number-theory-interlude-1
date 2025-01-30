@@ -8,50 +8,6 @@
 <p>
 The theorem states that for any integer $p > 1$ we have $(p - 1)! = - 1 \mod p$ if and only if $p$ is prime. To understand quickly just think about this: every number from $1$ to $p - 1 (\mod p)$ has a multiplicative modular inverse and that inverse is unique for that number with two exceptions: $1$ and $p - 1$ whose inverses are themselves (indeed they are always roots of unity). Then why multiplying them makes the rule to hold? Simply because $1(p - 1) = p - 1 = - 1 (\mod p)$. One of the 'hard' things to prove here is the uniqueness and existence of multiplicative modular inverses from $1$ to $p - 1$ which I proved in the final section of [https://github.com/Z323323/From-Fermat-to-the-group-theory]. Now let's understand why this formula is enough to prove that $p$ is prime. If $p$ wasn't prime there would necessarily exist some numbers which are not coprime, hence by the same reasoning made in the first part of [https://github.com/Z323323/Group-theory-elements] we would end up having a result $\mod n$ ($n$ non-prime) which could not be $1(p - 1)$. To get this quickly just note that the non-coprimes will produce a number which is not coprime with $n$ hence $product \not\equiv 1, - 1 \mod n$. Also note that $Z_{n}^{*}$ is not a multiplicative group because the existence of inverses for every element is a requirement for the definition of multiplicative group. Indeed when papers refer to $Z_{n}^{*}$ they refer to $Z_{\phi(n)}^{*}$, or better, when I refer to $Z_{\phi(n)}^{*}$ I refer to $Z_{n}^{*}$ because of everything said into [https://github.com/Z323323/Group-theory-elements]. Also we can't use this theorem as primality test because computing $(p - 1)! = - 1 \mod p$ is too computationally heavy.
 
-### Some ex.s
-  
-$x \mod 4$<br>
--><br>
-$1$ is a root of unity.<br>
-$2$ is not a multiplicative modular inverse nor a root of unity.<br>
-$3$ is a root of unity.<br>
-
-$x \mod 15$<br>
--><br>
-$1$ is a root of unity.<br>
-$2$ and $8$ are multiplicative modular inverses.<br>
-$3$ is neither a root nor an inverse.<br>
-$4$ is a root of unity.<br>
-$5$ is neither a root nor an inverse.<br>
-$6$ is neither a root nor an inverse (it has 3 in it).<br>
-$7$ and $13$ are multiplicative modular inverses.<br>
-$9$ is neither a root nor an inverse (it has 3 in it).<br>
-$10$ is neither a root nor an inverse (it has 5 in it).<br>
-$11$ is a root of unity.<br>
-$12$ is neither a root nor an inverse (it has 3 in it).<br>
-$14$ is a root of unity.<br>
-
-R----I----X----R----X----X----I----I----X----X----R----X----I----R<br>
-
-Where R = root, I = inverse, X = neither one of them.
-
-Before moving forward let's see another example with a prime modulo:<br>
-
-$x \mod 17$<br>
--><br>
-$1$ is a root of unity.<br>
-$2$ and $9$ are multiplicative modular inverses.<br>
-$3$ and $6$ are multiplicative modular inverses.<br>
-$4$ and $13$ are multiplicative modular inverses.<br>
-$5$ and $7$ are multiplicative modular inverses.<br>
-$8$ and $15$ are multiplicative modular inverses.<br>
-$10$ and $12$ are multiplicative modular inverses.<br>
-$11$ and $14$ are multiplicative modular inverses.<br>
-$16$ is a root of unity.<br>
-
-R----I----I----I----I----I----I----I----I----I----I----I----I----I----I----R<br>
-</p>
-
 ## Units
 
 <p>
