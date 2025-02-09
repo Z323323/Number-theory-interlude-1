@@ -18,8 +18,7 @@ The theorem states that for any integer $p > 1$ we have $(p - 1)! = - 1 \mod p$ 
 ## Modular exp. and DLP
 
 <p>
-  These are well covered in [https://crypto.stanford.edu/pbc/notes/numbertheory/exp.html] so I won't delve them. The absence of a structure of the powers of $x \mod p$ is quite magical and it's one of the foundations of cryptography 
-  (even if the actual process which destroy the structure is combined with elliptic curves into PLONK).
+  These are well covered in [https://crypto.stanford.edu/pbc/notes/numbertheory/exp.html] so I won't delve them. The absence of a structure of the powers of $x \mod p$ is quite magical and it's one of the foundations of cryptography.
 </p>
 
 ## Nonunits
